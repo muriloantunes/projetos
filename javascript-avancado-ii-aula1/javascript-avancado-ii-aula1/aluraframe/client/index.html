@@ -6,7 +6,6 @@
     <title>Negociações</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
-
 </head>
 
 <body class="container">
@@ -16,7 +15,6 @@
     <div id="mensagemView"></div>
 
     <form class="form" onsubmit="negociacaoController.adiciona(event)">
-
         <div class="form-group">
             <label for="data">Data</label>
             <input type="date" id="data" class="form-control" required autofocus/>
@@ -58,6 +56,17 @@
     <script src="js/app/views/MensagemView.js"></script>
     <script>
         let negociacaoController = new NegociacaoController();
+    </script>
+    <script>
+        let negociacao = new Proxy(new Negociacao(new Date(), 1, 100), {
+            get: function(target, prop, receiver){
+                console.log(`a propriedade "${prop}" foi interceptada`)
+                return Reflect.get(target, prop, receiver)
+            }
+        })
+
+        console.log(negociacao.quantidade)
+        console.log(negociacao.valor)
     </script>
 </body>
 
